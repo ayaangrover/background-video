@@ -75,6 +75,10 @@
     </svg>
     I love you.
   </h1>
+  <audio id="heartSound">
+    <source src="sound.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
   <div class="heart-container">
     <svg class="heart" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24">
       <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
@@ -86,6 +90,7 @@
     const heartContainer = document.querySelector('.heart-container');
     const heart = document.querySelector('.heart');
     const thankYou = document.querySelector('.thank-you');
+    let heartSoundPlayed = false; // Track if the sound has been played
 
     // Move the h1 element from the top to the middle and fade in after 2 seconds
     setTimeout(() => {
@@ -105,10 +110,24 @@
       setTimeout(() => {
         heartContainer.style.opacity = '1'; // Reveal the heart
         animateHeart();
-        
+
+        // Play the sound if it hasn't been played yet (user interaction required)
+        if (!heartSoundPlayed) {
+          const heartSound = document.getElementById('heartSound');
+          heartSound.play().then(() => {
+            // Mark as played after successful playback
+            heartSoundPlayed = true;
+          }).catch(error => {
+            console.error('Error playing sound:', error);
+          });
+        }
+
         // After 5 seconds of heart flickering, reveal "THANK YOU"
         setTimeout(() => {
           thankYou.style.opacity = '1';
+          // Pause the sound (optional)
+          const heartSound = document.getElementById('heartSound');
+          heartSound.pause();
         }, 5000); // 5000 milliseconds = 5 seconds (adjust as needed)
       }, 2000); // 2000 milliseconds = 2 seconds (adjust as needed)
     }, 5000); // 5000 milliseconds = 5 seconds
