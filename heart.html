@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Video Background</title>
+  <style>
+    @import url(https://db.onlinewebfonts.com/c/98e75413e2b23b52c8c20c13647ef72e?family=Miedinger+W01+Regular);
+    @import url(https://db.onlinewebfonts.com/c/db8811fcaea2386d4f6e3bcf7e6d206b?family=Miedinger+W01+Bold);
+    @import url(https://db.onlinewebfonts.com/c/5fc6f4fd75e944a52a342ab2c7f100f1?family=Montserrat);
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden; /* Hide scrollbars */
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      object-fit: cover;
+    }
+
+    html {
+      background-color: #000000;
+    }
+
+    h1 {
+      font-family: "Miedinger W01 Bold", "Miedinger W01 Regular", "Montserrat";
+      font-size: 8rem;
+      color: white;
+      position: fixed;
+      top: 0%; /* Initially at the vertical center */
+      left: 50%; /* Initially at the horizontal center */
+      transform: translate(-50%, -50%); /* Center horizontally and vertically */
+      text-align:center;
+      transition: top 2s cubic-bezier(0.76, 0, 0.24, 1), opacity 2s cubic-bezier(0.76, 0, 0.24, 1); /* Slower transition for both top and opacity */
+      opacity: 0; /* Initially fully transparent */
+    }
+    .heart-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease-in-out; /* Smoothly fade in */
+    }
+
+    .heart {
+      width: 100px;
+      height: 100px;
+      fill: white;
+    }
+
+    .thank-you {
+      font-family: "Miedinger W01 Bold", "Miedinger W01 Regular", "Montserrat";
+      font-size: 4rem;
+      color: white;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease-in-out; /* Smoothly fade in */
+    }
+  </style>
+</head>
+<body>
+  <video src="images.mp4" autoplay muted></video>
+  <h1>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" style="fill: white;">
+      <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
+    </svg>
+    I love you.
+  </h1>
+  <div class="heart-container">
+    <svg class="heart" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24">
+      <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
+    </svg>
+  </div>
+  <div class="thank-you">THANK YOU</div>
+  <script>
+    const h1 = document.querySelector('h1');
+    const heartContainer = document.querySelector('.heart-container');
+    const heart = document.querySelector('.heart');
+    const thankYou = document.querySelector('.thank-you');
+
+    // Move the h1 element from the top to the middle and fade in after 2 seconds
+    setTimeout(() => {
+      h1.style.top = '50%'; // Move to the vertical center
+      h1.style.opacity = '1'; // Fade in
+    }, 1200); // 1200 milliseconds = 1.2 seconds
+
+    // After 5 seconds, zoom in the h1 to fill the entire screen with white
+    setTimeout(() => {
+      h1.style.transition = 'font-size 2s ease-in-out, transform 2s ease-in-out, background-color 2s ease-in-out, transform-origin 2s ease-in-out';
+      h1.style.fontSize = '20rem'; // Increase font size (adjust to your preference)
+      h1.style.transform = 'scale(4)'; // Scale up the h1 (adjust to your preference)
+      h1.style.backgroundColor = 'white'; // Change background color to white
+      h1.style.transformOrigin = 'center center'; // Center the transformation
+
+      // After the zoom animation, reveal the heart and start flickering
+      setTimeout(() => {
+        heartContainer.style.opacity = '1'; // Reveal the heart
+        animateHeart();
+        
+        // After 5 seconds of heart flickering, reveal "THANK YOU"
+        setTimeout(() => {
+          thankYou.style.opacity = '1';
+        }, 5000); // 5000 milliseconds = 5 seconds (adjust as needed)
+      }, 2000); // 2000 milliseconds = 2 seconds (adjust as needed)
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    // Function to animate the heart (flicker between white and black)
+    function animateHeart() {
+      setTimeout(() => {
+        heart.style.fill = '#F82E5F';
+        setTimeout(() => {
+          heart.style.fill = '#F82E5F';
+          animateHeart(); // Repeat the animation
+        }, 800); // 800 milliseconds = 0.8 seconds (adjust to control flicker speed)
+      }, 800); // 800 milliseconds = 0.8 seconds (adjust to control flicker speed)
+    }
+  </script>
+</body>
+</html>
