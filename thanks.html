@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Video Background</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden; /* Hide scrollbars */
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      object-fit: cover;
+    }
+
+    html {
+      background-color: #000000;
+    }
+
+    h1 {
+      font-family: Montserrat;
+      font-size: 8rem;
+      color: white;
+      position: fixed;
+      top: 0%; /* Initially at the vertical center */
+      left: 50%; /* Initially at the horizontal center */
+      transform: translate(-50%, -50%); /* Center horizontally and vertically */
+      transition: top 2s cubic-bezier(0.76, 0, 0.24, 1), opacity 2s cubic-bezier(0.76, 0, 0.24, 1); /* Slower transition for both top and opacity */
+      opacity: 0; /* Initially fully transparent */
+    }
+  </style>
+</head>
+<body>
+  <video src="images.mp4" autoplay muted></video>
+  <h1>Thank You.</h1>
+  <script>
+    const h1 = document.querySelector('h1');
+
+    // Move the h1 element from the top to the middle and fade in after 2 seconds
+    setTimeout(() => {
+      h1.style.top = '50%'; // Move to the vertical center
+      h1.style.opacity = '1'; // Fade in
+    }, 1200); // 900 milliseconds = 9 seconds
+  </script>
+</body>
+</html>
